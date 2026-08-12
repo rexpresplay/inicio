@@ -152,6 +152,16 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 .cupon-msg.ok{display:block;color:var(--green);}
 .cupon-msg.err{display:block;color:var(--red);}
 
+/* ---------- toast flotante ---------- */
+.toast{position:fixed;left:50%;top:14px;transform:translateX(-50%) translateY(-16px);
+  background:var(--bg-2);border:1px solid rgba(255,255,255,.15);border-radius:8px;
+  padding:12px 20px;font-size:.82rem;font-weight:900;z-index:600;opacity:0;pointer-events:none;
+  transition:opacity .25s var(--ease),transform .25s var(--ease);box-shadow:0 14px 32px -10px rgba(0,0,0,.6);
+  max-width:88vw;text-align:center;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.ok{border-color:var(--green);color:var(--green);}
+.toast.err{border-color:var(--red);color:var(--red);}
+
 /* ---------- resumen ---------- */
 .summary{background:var(--bg-0);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:14px 16px;margin-bottom:14px;}
 .sum-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);}
@@ -195,6 +205,8 @@ footer{background:var(--bg-0);border-top:1px solid rgba(255,255,255,.06);padding
 </style>
 </head>
 <body>
+
+<div class="toast" id="toast"></div>
 
 <div class="success-ov" id="successOv">
   <div class="success-box">
@@ -243,9 +255,9 @@ footer{background:var(--bg-0);border-top:1px solid rgba(255,255,255,.06);padding
     </div>
     <div class="step-body">
       <div class="field">
-        <label class="field-label">ID de jugador Free Fire</label>
-        <input type="text" id="fId" class="field-input" placeholder="Ej. 123456789" inputmode="numeric">
-        <p class="field-hint">Lo encuentras en tu perfil dentro del juego. Verificamos que sea correcto antes de entregar tus diamantes.</p>
+        <label class="field-label">ID de jugador</label>
+        <input type="text" id="fId" class="field-input" placeholder="Ej. 123456789" inputmode="numeric" maxlength="15">
+        <p class="field-hint">Coloca el ID de tu jugador que se encuentra en el perfil de tu cuenta. Entre 6 y 15 dígitos.</p>
       </div>
     </div>
   </div>
@@ -270,16 +282,6 @@ footer{background:var(--bg-0);border-top:1px solid rgba(255,255,255,.06);padding
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v14M5 9l7 7 7-7"/><path d="M4 21h16"/></svg>
           <span class="metodo-name">Depósito</span>
           <span class="metodo-desc">Ventanilla o cajero</span>
-        </div>
-        <div class="metodo-btn" id="mPayphone" data-metodo="payphone">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
-          <span class="metodo-name">Payphone</span>
-          <span class="metodo-desc">Pago con celular</span>
-        </div>
-        <div class="metodo-btn" id="mTarjeta" data-metodo="tarjeta">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-          <span class="metodo-name">Tarjeta</span>
-          <span class="metodo-desc">Débito o crédito</span>
         </div>
       </div>
 
@@ -318,9 +320,6 @@ footer{background:var(--bg-0);border-top:1px solid rgba(255,255,255,.06);padding
           <p class="comprobante-filename" id="comprobanteFilename"></p>
         </div>
       </div>
-
-      <!-- Instrucción instantánea (payphone/tarjeta) -->
-      <div class="instruccion" id="iInstantaneo">⚡&nbsp;&nbsp;<p>Coordinamos el cobro seguro directo por WhatsApp al confirmar tu pedido.</p></div>
     </div>
   </div>
 
@@ -331,8 +330,6 @@ footer{background:var(--bg-0);border-top:1px solid rgba(255,255,255,.06);padding
       <input type="text" id="promoIn" class="cupon-input" placeholder="Tu código aquí">
       <button class="cupon-apply" id="promoBtn">Aplicar</button>
     </div>
-    <p id="promoOk" class="cupon-msg ok">✅ Código aplicado correctamente</p>
-    <p id="promoErr" class="cupon-msg err">❌ Código no válido</p>
   </div>
 
   <!-- PASO 3 — CONFIRMACIÓN -->
@@ -414,7 +411,6 @@ var bancosIds = { "Banco Pichincha":"bPichincha", "Produbanco":"bProdubanco", "B
 
 var metodoBtns = document.querySelectorAll(".metodo-btn");
 var bancosWrap = document.getElementById("bancosWrap");
-var iInstantaneo = document.getElementById("iInstantaneo");
 
 metodoBtns.forEach(function(btn){
   btn.addEventListener("click", function(){
@@ -428,13 +424,8 @@ metodoBtns.forEach(function(btn){
     document.getElementById("iTransferencia").classList.remove("show");
     document.getElementById("iDeposito").classList.remove("show");
 
-    var necesitaBanco = (metodoSel === "transferencia" || metodoSel === "deposito");
-    bancosWrap.classList.toggle("show", necesitaBanco);
-    iInstantaneo.classList.toggle("show", !necesitaBanco);
-
-    if(necesitaBanco){
-      document.getElementById("i" + (metodoSel === "transferencia" ? "Transferencia" : "Deposito")).classList.add("show");
-    }
+    bancosWrap.classList.add("show");
+    document.getElementById("i" + (metodoSel === "transferencia" ? "Transferencia" : "Deposito")).classList.add("show");
   });
 });
 
@@ -517,17 +508,26 @@ document.getElementById("comprobanteRemove").addEventListener("click", function(
   comprobanteBox.querySelector(".comprobante-hint").textContent = "JPG, PNG o PDF · Máx. 5MB";
 });
 
+/* ---------- toast flotante ---------- */
+var toastEl = document.getElementById("toast"), toastTimer = null;
+function showToast(msg, type){
+  toastEl.textContent = msg;
+  toastEl.className = "toast show " + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ toastEl.classList.remove("show"); }, 2400);
+}
+
 /* ---------- cupón ---------- */
 document.getElementById("promoBtn").addEventListener("click", function(){
   var input = document.getElementById("promoIn").value.toUpperCase().trim();
-  var ok = document.getElementById("promoOk"), err = document.getElementById("promoErr");
+  if(!input) return;
   if(CUPONES[input] !== undefined){
     descuento = price * (CUPONES[input] / 100);
     codigoUsado = input;
-    ok.style.display = "block"; err.style.display = "none";
+    showToast("✅ Código aplicado correctamente", "ok");
   }else{
     descuento = 0; codigoUsado = null;
-    ok.style.display = "none"; err.style.display = "block";
+    showToast("❌ Código no válido", "err");
   }
   actualizarResumen();
 });
@@ -546,7 +546,7 @@ function descargarComprobante(){
 /* ---------- confirmar pedido ---------- */
 document.getElementById("btnOk").addEventListener("click", function(){
   var id = document.getElementById("fId").value.trim();
-  if(!id){ document.getElementById("fId").focus(); alert("Ingresa tu ID de jugador."); return; }
+  if(!/^\d{6,15}$/.test(id)){ document.getElementById("fId").focus(); alert("El ID debe tener solo números, entre 6 y 15 dígitos."); return; }
   if(!metodoSel){ alert("Selecciona un método de pago."); return; }
 
   var necesitaBanco = (metodoSel === "transferencia" || metodoSel === "deposito");
@@ -556,7 +556,7 @@ document.getElementById("btnOk").addEventListener("click", function(){
   }
 
   var tot = Math.max(price - descuento, 0);
-  var metodoLabel = {transferencia:"Transferencia bancaria", deposito:"Depósito", payphone:"Payphone", tarjeta:"Tarjeta"}[metodoSel];
+  var metodoLabel = {transferencia:"Transferencia bancaria", deposito:"Depósito"}[metodoSel];
 
   var msg = "¡Hola Rexpres Play! 🚀\n\n*Pedido de diamantes Free Fire:*\n";
   msg += "• Paquete: " + amt + (bonus > 0 ? " (+"+bonus+" bono)" : "") + "\n";

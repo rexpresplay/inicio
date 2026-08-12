@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rexpres Play — Diamantes Free Fire</title>
 <meta name="description" content="Recarga diamantes de Free Fire al instante. Elige tu paquete, valida tu ID y paga seguro.">
+<meta property="og:title" content="Rexpres Play — Diamantes Free Fire al instante">
+<meta property="og:description" content="Elige tu paquete, coloca tu ID y paga seguro. Entrega en minutos.">
+<meta property="og:image" content="images/og-image.webp">
+<meta property="og:type" content="website">
 <meta name="theme-color" content="#05070F">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%2307040A'/%3E%3Cpolygon points='14,12 34,12 50,52 30,52' fill='%23FF7A1A'/%3E%3Cpolygon points='50,12 30,12 14,52 34,52' fill='%233A5CFF'/%3E%3C/svg%3E" type="image/svg+xml">
 <style>
@@ -61,11 +65,16 @@ p{margin:0;}
 
 /* ---------- HERO ---------- */
 .hero{position:relative;padding:9rem 0 4.5rem;overflow:hidden;}
-.hero::before{content:"";position:absolute;inset:0;background:
-  radial-gradient(55% 50% at 88% 8%, rgba(255,59,59,.35), transparent 60%),
-  radial-gradient(50% 45% at 78% 18%, rgba(255,122,26,.3), transparent 60%),
-  radial-gradient(65% 60% at 4% 40%, rgba(58,92,255,.4), transparent 60%),
-  var(--bg-0);
+.hero::before{content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(55% 50% at 88% 8%, rgba(255,59,59,.35), transparent 60%),
+    radial-gradient(50% 45% at 78% 18%, rgba(255,122,26,.3), transparent 60%),
+    radial-gradient(65% 60% at 4% 40%, rgba(58,92,255,.45), transparent 60%),
+    url('images/hero-bg.webp');
+  background-size:auto,auto,auto,cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-color:var(--bg-0);
   z-index:-3;}
 .hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:36px 36px;mask-image:radial-gradient(65% 60% at 50% 15%,black,transparent);z-index:-2;}
 .hero-slash{position:absolute;top:-15%;left:38%;width:60%;height:150%;background:linear-gradient(100deg,rgba(255,122,26,0) 0%,rgba(255,122,26,.12) 45%,rgba(58,92,255,.14) 60%,rgba(58,92,255,0) 100%);clip-path:polygon(30% 0,60% 0,40% 100%,10% 100%);z-index:-1;pointer-events:none;}
@@ -81,6 +90,14 @@ p{margin:0;}
 @keyframes spin{0%{transform:rotateY(0);}50%{transform:rotateY(18deg);}100%{transform:rotateY(0);}}
 .gem-particle{position:absolute;clip-path:polygon(50% 0%,100% 35%,80% 100%,20% 100%,0% 35%);background:linear-gradient(135deg,var(--cyan),var(--blue));animation:float 8s ease-in-out infinite;}
 @keyframes float{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-22px) rotate(14deg);}}
+.hero-char{position:absolute;inset:0;margin:auto;max-width:min(420px,85vw);max-height:520px;z-index:2;filter:drop-shadow(0 25px 50px rgba(0,0,0,.55));animation:float 7s ease-in-out infinite;}
+
+.promo-banner{position:relative;height:clamp(140px,22vw,240px);overflow:hidden;background:linear-gradient(120deg,#1B0B26,#0E0816);}
+.promo-banner img{width:100%;height:100%;object-fit:cover;object-position:center;}
+.promo-banner .pb-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,4,10,.85) 0%,rgba(7,4,10,.25) 55%,rgba(7,4,10,.75) 100%);
+  display:flex;align-items:center;padding:0 6vw;}
+.promo-banner h3{font-size:clamp(1.3rem,3.5vw,2rem);text-transform:uppercase;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6);}
+.promo-banner h3 em{font-style:normal;background:linear-gradient(100deg,var(--red),var(--orange-2));-webkit-background-clip:text;background-clip:text;color:transparent;}
 
 .quickpick{display:flex;gap:.7rem;margin-top:2.4rem;flex-wrap:wrap;}
 .qchip{display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:4px;padding:.6rem 1rem;cursor:pointer;transition:border-color .2s,transform .2s;font-family:var(--font-m);font-weight:700;font-size:.82rem;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);}
@@ -114,13 +131,13 @@ p{margin:0;}
 @media (min-width:640px){.pgrid{grid-template-columns:repeat(3,1fr);gap:1.1rem;}}
 @media (min-width:1000px){.pgrid{grid-template-columns:repeat(4,1fr);gap:1.2rem;}}
 
-.pcard{position:relative;background:linear-gradient(160deg,var(--bg-2),var(--bg-1));border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:1.6rem 1rem 1.4rem;text-align:center;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease);}
+.pcard{position:relative;isolation:isolate;background-image:linear-gradient(180deg,rgba(18,11,24,.55) 0%,rgba(18,11,24,.88) 62%,var(--bg-1) 100%),url('images/pack-bg.webp');background-size:cover,cover;background-position:center,center 20%;background-color:var(--bg-2);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:1.6rem 1rem 1.4rem;text-align:center;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease);}
 .pcard::before,.pcard::after{content:"";position:absolute;width:16px;height:16px;border:2px solid var(--orange);opacity:0;transition:opacity .25s;}
 .pcard::before{top:-2px;left:-2px;border-right:none;border-bottom:none;}
 .pcard::after{bottom:-2px;right:-2px;border-left:none;border-top:none;}
 .pcard:hover{transform:translateY(-6px);box-shadow:0 18px 40px -14px rgba(255,122,26,.45);}
 .pcard:hover::before,.pcard:hover::after{opacity:1;}
-.pcard.hot{border-color:rgba(255,122,26,.5);background:linear-gradient(160deg,#2A1035,#160C22);}
+.pcard.hot{border-color:rgba(255,122,26,.5);background-image:linear-gradient(180deg,rgba(42,16,53,.5) 0%,rgba(22,12,34,.9) 62%,#160C22 100%),url('images/pack-bg.webp');background-size:cover,cover;background-position:center,center 20%;background-color:#1B1024;}
 .pcard.hot::before,.pcard.hot::after{opacity:.85;}
 .ptag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(100deg,var(--red),var(--orange));color:#1A0500;font-family:var(--font-d);font-weight:900;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;padding:.28rem .75rem;white-space:nowrap;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);}
 .pgem{width:40px;margin:0 auto .7rem;filter:drop-shadow(0 4px 10px rgba(63,224,232,.35));}
@@ -219,12 +236,15 @@ footer{background:var(--bg-0);padding:2.4rem 0 1.4rem;border-top:1px solid rgba(
         <a href="#como" class="btn btn--ghost">Cómo funciona</a>
       </div>
       <div class="quickpick" data-reveal>
-        <div class="qchip" data-buy data-amt="310" data-bonus="31" data-price="3.00"><b>310💎</b><span>$3</span></div>
-        <div class="qchip" data-buy data-amt="1,060" data-bonus="106" data-price="10.00"><b>1,060💎</b><span>$10</span></div>
-        <div class="qchip" data-buy data-amt="2,180" data-bonus="218" data-price="20.00"><b>2,180💎</b><span>$20</span></div>
+        <div class="qchip" data-buy data-amt="341" data-bonus="0" data-price="2.66"><b>341💎</b><span>$2.66</span></div>
+        <div class="qchip" data-buy data-amt="1,160" data-bonus="0" data-price="8.43"><b>1,160💎</b><span>$8.43</span></div>
+        <div class="qchip" data-buy data-amt="6,160" data-bonus="0" data-price="42.74"><b>6,160💎</b><span>$42.74</span></div>
       </div>
     </div>
     <div class="gemwrap">
+      <img src="images/hero-character.webp" alt="" class="hero-char" fetchpriority="high"
+           onerror="this.style.display='none'"
+           onload="this.nextElementSibling.style.display='none'">
       <svg class="gem-big" viewBox="0 0 200 200">
         <defs>
           <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1">
@@ -254,52 +274,57 @@ footer{background:var(--bg-0);padding:2.4rem 0 1.4rem;border-top:1px solid rgba(
   <div class="wrap trust-in">
     <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" fill="currentColor"/></svg>Entrega en minutos</div>
     <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z" fill="currentColor"/></svg>Pago seguro</div>
-    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3V4z" fill="currentColor"/></svg>Soporte 24/7</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3V4z" fill="currentColor"/></svg>Atención Lun-Dom 8am-10pm</div>
   </div>
 </section>
+
+<div class="promo-banner" id="promoBanner">
+  <img src="images/diamonds-banner.webp" alt="Diamantes Free Fire"
+       loading="lazy"
+       onerror="document.getElementById('promoBanner').style.display='none'">
+  <div class="pb-overlay">
+    <h3>Recarga <em>rápido.</em><br>Juega <em>sin límites.</em></h3>
+  </div>
+</div>
 
 <section class="section" id="paquetes">
   <div class="wrap">
     <div class="s-head" data-reveal><h2>Paquetes</h2><p>Precios en USD</p></div>
     <div class="pgrid" data-reveal>
-      <article class="pcard" data-buy data-amt="100" data-bonus="0" data-price="1.00">
+      <article class="pcard" data-buy data-amt="110" data-bonus="0" data-price="0.90">
         <svg class="pgem" viewBox="0 0 48 48"><polygon points="24,4 40,16 33,44 15,44 8,16" fill="#3FCBDE"/><polygon points="24,4 40,16 24,20" fill="#7BE4F0"/><polygon points="24,4 8,16 24,20" fill="#1E9FB3"/></svg>
-        <p class="pamt">100</p><p class="pprice">$1.00</p>
+        <p class="pamt">110</p><p class="pprice">$0.90</p>
         <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
       </article>
-      <article class="pcard hot" data-buy data-amt="310" data-bonus="31" data-price="3.00">
+      <article class="pcard" data-buy data-amt="341" data-bonus="0" data-price="2.66">
+        <svg class="pgem" viewBox="0 0 48 48"><polygon points="24,4 40,16 33,44 15,44 8,16" fill="#3FCBDE"/><polygon points="24,4 40,16 24,20" fill="#7BE4F0"/><polygon points="24,4 8,16 24,20" fill="#1E9FB3"/></svg>
+        <p class="pamt">341</p><p class="pprice">$2.66</p>
+        <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
+      </article>
+      <article class="pcard" data-buy data-amt="572" data-bonus="0" data-price="4.52">
+        <svg class="pgem" viewBox="0 0 48 48"><polygon points="24,4 40,16 33,44 15,44 8,16" fill="#3FCBDE"/><polygon points="24,4 40,16 24,20" fill="#7BE4F0"/><polygon points="24,4 8,16 24,20" fill="#1E9FB3"/></svg>
+        <p class="pamt">572</p><p class="pprice">$4.52</p>
+        <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
+      </article>
+      <article class="pcard hot" data-buy data-amt="1,160" data-bonus="0" data-price="8.43">
         <span class="ptag">Recomendado</span>
         <svg class="pgem" viewBox="0 0 48 48"><polygon points="24,4 40,16 33,44 15,44 8,16" fill="#3FCBDE"/><polygon points="24,4 40,16 24,20" fill="#7BE4F0"/><polygon points="24,4 8,16 24,20" fill="#1E9FB3"/></svg>
-        <p class="pamt">310<small>+31 bono</small></p><p class="pprice">$3.00</p>
+        <p class="pamt">1,160</p><p class="pprice">$8.43</p>
         <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
       </article>
-      <article class="pcard" data-buy data-amt="520" data-bonus="52" data-price="5.00">
+      <article class="pcard" data-buy data-amt="2,398" data-bonus="0" data-price="16.80">
         <svg class="pgem" viewBox="0 0 48 48"><polygon points="24,4 40,16 33,44 15,44 8,16" fill="#3FCBDE"/><polygon points="24,4 40,16 24,20" fill="#7BE4F0"/><polygon points="24,4 8,16 24,20" fill="#1E9FB3"/></svg>
-        <p class="pamt">520<small>+52 bono</small></p><p class="pprice">$5.00</p>
+        <p class="pamt">2,398</p><p class="pprice">$16.80</p>
         <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
       </article>
-      <article class="pcard hot" data-buy data-amt="1,060" data-bonus="106" data-price="10.00">
+      <article class="pcard hot" data-buy data-amt="6,160" data-bonus="0" data-price="42.74">
         <span class="ptag">Más popular</span>
         <svg class="pgem" viewBox="0 0 48 48"><polygon points="24,4 40,16 33,44 15,44 8,16" fill="#3FCBDE"/><polygon points="24,4 40,16 24,20" fill="#7BE4F0"/><polygon points="24,4 8,16 24,20" fill="#1E9FB3"/></svg>
-        <p class="pamt">1,060<small>+106 bono</small></p><p class="pprice">$10.00</p>
-        <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
-      </article>
-      <article class="pcard" data-buy data-amt="2,180" data-bonus="218" data-price="20.00">
-        <svg class="pgem" viewBox="0 0 48 48"><polygon points="24,4 40,16 33,44 15,44 8,16" fill="#3FCBDE"/><polygon points="24,4 40,16 24,20" fill="#7BE4F0"/><polygon points="24,4 8,16 24,20" fill="#1E9FB3"/></svg>
-        <p class="pamt">2,180<small>+218 bono</small></p><p class="pprice">$20.00</p>
-        <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
-      </article>
-      <article class="pcard" data-buy data-amt="5,600" data-bonus="560" data-price="50.00">
-        <svg class="pgem" viewBox="0 0 48 48"><polygon points="24,4 40,16 33,44 15,44 8,16" fill="#3FCBDE"/><polygon points="24,4 40,16 24,20" fill="#7BE4F0"/><polygon points="24,4 8,16 24,20" fill="#1E9FB3"/></svg>
-        <p class="pamt">5,600<small>+560 bono</small></p><p class="pprice">$50.00</p>
+        <p class="pamt">6,160</p><p class="pprice">$42.74</p>
         <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
       </article>
     </div>
 
-    <div class="mem-row" data-reveal>
-      <div class="mem-card" data-buy data-amt="Pase Semanal" data-bonus="0" data-price="1.50"><h3>Pase Semanal</h3><span>$1.50</span></div>
-      <div class="mem-card" data-buy data-amt="Pase Mensual" data-bonus="0" data-price="6.00"><h3>Pase Mensual</h3><span>$6.00</span></div>
-    </div>
   </div>
 </section>
 
@@ -310,17 +335,6 @@ footer{background:var(--bg-0);padding:2.4rem 0 1.4rem;border-top:1px solid rgba(
       <div class="step"><em>01</em><h3>Elige tu paquete</h3></div>
       <div class="step"><em>02</em><h3>Valida tu ID</h3></div>
       <div class="step"><em>03</em><h3>Recibe al instante</h3></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="s-head" data-reveal><h2>Jugadores felices</h2></div>
-    <div class="rev-strip" data-reveal>
-      <div class="rev"><div class="stars">★★★★★</div><p>"Llegó en 8 minutos, tal cual."</p><b>Andrés M.</b></div>
-      <div class="rev"><div class="stars">★★★★★</div><p>"Ya es mi tercera compra acá."</p><b>Camila R.</b></div>
-      <div class="rev"><div class="stars">★★★★★</div><p>"Rápido y sin complicaciones."</p><b>Kevin S.</b></div>
     </div>
   </div>
 </section>
