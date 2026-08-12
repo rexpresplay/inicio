@@ -18,15 +18,19 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{background:var(--bg-0);color:var(--ink);font-family:var(--font);overflow-x:hidden;}
-body{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh;}
+body{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh;position:relative;}
 main{flex:1;}
 a{text-decoration:none;color:inherit;}
 img,svg{display:block;max-width:100%;}
 ::selection{background:var(--orange);color:#1A0500;}
 
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(rgba(255,122,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,122,26,.035) 1px,transparent 1px);
-  background-size:38px 38px;}
+  background-image:
+    radial-gradient(50% 40% at 85% 0%, rgba(255,59,59,.16), transparent 60%),
+    radial-gradient(45% 40% at 8% 8%, rgba(58,92,255,.2), transparent 60%),
+    linear-gradient(rgba(255,122,26,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,122,26,.035) 1px,transparent 1px);
+  background-size:auto,auto,38px 38px,38px 38px;}
 
 /* ---------- header ---------- */
 .hdr{background:rgba(7,4,10,.92);backdrop-filter:blur(16px);position:sticky;top:0;z-index:100;
@@ -44,9 +48,21 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
 .wa-mini svg{width:18px;height:18px;color:#25D366;}
 
 /* ---------- wrap ---------- */
-.wrap{padding:20px 14px 10px;position:relative;z-index:1;max-width:480px;margin:0 auto;width:100%;}
+.wrap{padding:20px 14px 10px;max-width:480px;margin:0 auto;width:100%;position:relative;z-index:1;}
 .back-btn{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:900;color:var(--orange-2);
   text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;}
+.checkout-grid{display:block;}
+.co-main{min-width:0;}
+.co-side{margin-top:0;}
+
+@media (min-width:900px){
+  .wrap{max-width:1080px;padding:52px 32px 60px;}
+  .back-btn{margin-bottom:24px;font-size:12px;}
+  .checkout-grid{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start;}
+  .co-side{position:sticky;top:88px;}
+  .svc-card{padding:20px;}
+  .step-title{font-size:1.02rem;}
+}
 
 /* ---------- service card ---------- */
 .svc-card{background:linear-gradient(160deg,var(--bg-2),var(--bg-1));border:1px solid rgba(255,255,255,.08);
@@ -222,7 +238,7 @@ footer{background:var(--bg-0);border-top:1px solid rgba(255,255,255,.06);padding
     <span class="bmark"><span class="bslab a"></span><span class="bslab b"></span></span>
     <span class="bword">Rexpres<i>Play</i></span>
   </a>
-  <a class="wa-mini" href="https://wa.me/593000000000" target="_blank" rel="noopener" aria-label="Ayuda por WhatsApp">
+  <a class="wa-mini" href="https://wa.me/593992225484" target="_blank" rel="noopener" aria-label="Ayuda por WhatsApp">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5-1.3c1.5.8 3.1 1.2 4.9 1.2h.1c5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
   </a>
 </header>
@@ -231,6 +247,9 @@ footer{background:var(--bg-0);border-top:1px solid rgba(255,255,255,.06);padding
 <div class="wrap">
 
   <a class="back-btn" href="index.html">← Volver a paquetes</a>
+
+  <div class="checkout-grid">
+  <div class="co-main">
 
   <!-- Tarjeta del servicio -->
   <div class="svc-card">
@@ -332,6 +351,9 @@ footer{background:var(--bg-0);border-top:1px solid rgba(255,255,255,.06);padding
     </div>
   </div>
 
+  </div><!-- /co-main -->
+
+  <div class="co-side">
   <!-- PASO 3 — CONFIRMACIÓN -->
   <div class="step-box">
     <div class="step-head">
@@ -352,11 +374,13 @@ footer{background:var(--bg-0);border-top:1px solid rgba(255,255,255,.06);padding
       <p class="secure-note">🔒 Tu pedido se coordina de forma segura vía WhatsApp</p>
     </div>
   </div>
+  </div><!-- /co-side -->
+  </div><!-- /checkout-grid -->
 
 </div>
 </main>
 
-<a href="https://wa.me/593000000000" class="wa-fab" target="_blank" rel="noopener" aria-label="WhatsApp">
+<a href="https://wa.me/593992225484" class="wa-fab" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg viewBox="0 0 32 32"><path fill="currentColor" d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.5.7 4.8 1.9 6.8L3 29l6.9-2.2c1.9 1.1 4.1 1.7 6.1 1.7 7 0 12.7-5.6 12.7-12.5S23 3 16 3zm0 22.7c-2 0-3.9-.6-5.5-1.6l-.4-.2-4.1 1.3 1.3-4-.3-.4a10.1 10.1 0 0 1-1.7-5.6C5.3 9.7 10 5.3 16 5.3S26.7 9.7 26.7 15.5 22 25.7 16 25.7zm5.9-7.5c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.3 8.3 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.4-.5.3-.4a.6.6 0 0 0 0-.5c-.1-.2-.7-1.7-1-2.3s-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.8.4 3.6 3.6 0 0 0-1.1 2.7c0 1.6 1.2 3.1 1.3 3.3.2.2 2.4 3.7 5.9 5.1a19.9 19.9 0 0 0 2 .7 4.8 4.8 0 0 0 2.2.1c.7-.1 2-.8 2.3-1.6s.3-1.5.2-1.6-.3-.2-.6-.4z"/></svg>
 </a>
 
@@ -365,7 +389,8 @@ footer{background:var(--bg-0);border-top:1px solid rgba(255,255,255,.06);padding
 <script>
 (function(){
 "use strict";
-var WHATSAPP_NUMBER = "593000000000";
+var SUPPORT_NUMBER = "593992225484";
+var ORDER_NUMBER = "593982063160";
 
 /* =====================================================================
    CUPONES — edítalos aquí. Clave = código en mayúsculas, valor = % descuento.
@@ -578,7 +603,7 @@ document.getElementById("btnOk").addEventListener("click", function(){
 
   if(comprobanteFile) descargarComprobante();
 
-  window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+  window.open("https://wa.me/" + ORDER_NUMBER + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
 
   btn.disabled = false;
   btn.textContent = "Confirmar pedido por WhatsApp";
