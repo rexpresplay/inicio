@@ -7,7 +7,7 @@
 <meta name="description" content="Recarga diamantes de Free Fire al instante. Elige tu paquete, valida tu ID y paga seguro.">
 <meta property="og:title" content="Rexpres Play — Diamantes Free Fire al instante">
 <meta property="og:description" content="Elige tu paquete, coloca tu ID y paga seguro. Entrega en minutos.">
-<meta property="og:image" content="images/og-image.webp">
+<meta property="og:image" content="og-image.webp">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#05070F">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%2307040A'/%3E%3Cpolygon points='14,12 34,12 50,52 30,52' fill='%23FF7A1A'/%3E%3Cpolygon points='50,12 30,12 14,52 34,52' fill='%233A5CFF'/%3E%3C/svg%3E" type="image/svg+xml">
@@ -70,7 +70,7 @@ p{margin:0;}
     radial-gradient(55% 50% at 88% 8%, rgba(255,59,59,.35), transparent 60%),
     radial-gradient(50% 45% at 78% 18%, rgba(255,122,26,.3), transparent 60%),
     radial-gradient(65% 60% at 4% 40%, rgba(58,92,255,.45), transparent 60%),
-    url('images/hero-bg.webp');
+    url('hero-bg.webp');
   background-size:auto,auto,auto,cover;
   background-position:center;
   background-repeat:no-repeat;
@@ -131,13 +131,13 @@ p{margin:0;}
 @media (min-width:640px){.pgrid{grid-template-columns:repeat(3,1fr);gap:1.1rem;}}
 @media (min-width:1000px){.pgrid{grid-template-columns:repeat(4,1fr);gap:1.2rem;}}
 
-.pcard{position:relative;isolation:isolate;background-image:linear-gradient(180deg,rgba(18,11,24,.55) 0%,rgba(18,11,24,.88) 62%,var(--bg-1) 100%),url('images/pack-bg.webp');background-size:cover,cover;background-position:center,center 20%;background-color:var(--bg-2);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:1.6rem 1rem 1.4rem;text-align:center;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease);}
+.pcard{position:relative;isolation:isolate;background-image:linear-gradient(180deg,rgba(18,11,24,.55) 0%,rgba(18,11,24,.88) 62%,var(--bg-1) 100%),url('pack-bg.webp');background-size:cover,cover;background-position:center,center 20%;background-color:var(--bg-2);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:1.6rem 1rem 1.4rem;text-align:center;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease);}
 .pcard::before,.pcard::after{content:"";position:absolute;width:16px;height:16px;border:2px solid var(--orange);opacity:0;transition:opacity .25s;}
 .pcard::before{top:-2px;left:-2px;border-right:none;border-bottom:none;}
 .pcard::after{bottom:-2px;right:-2px;border-left:none;border-top:none;}
 .pcard:hover{transform:translateY(-6px);box-shadow:0 18px 40px -14px rgba(255,122,26,.45);}
 .pcard:hover::before,.pcard:hover::after{opacity:1;}
-.pcard.hot{border-color:rgba(255,122,26,.5);background-image:linear-gradient(180deg,rgba(42,16,53,.5) 0%,rgba(22,12,34,.9) 62%,#160C22 100%),url('images/pack-bg.webp');background-size:cover,cover;background-position:center,center 20%;background-color:#1B1024;}
+.pcard.hot{border-color:rgba(255,122,26,.5);background-image:linear-gradient(180deg,rgba(42,16,53,.5) 0%,rgba(22,12,34,.9) 62%,#160C22 100%),url('pack-bg.webp');background-size:cover,cover;background-position:center,center 20%;background-color:#1B1024;}
 .pcard.hot::before,.pcard.hot::after{opacity:.85;}
 .ptag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(100deg,var(--red),var(--orange));color:#1A0500;font-family:var(--font-d);font-weight:900;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;padding:.28rem .75rem;white-space:nowrap;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);}
 .pgem{width:40px;margin:0 auto .7rem;filter:drop-shadow(0 4px 10px rgba(63,224,232,.35));}
@@ -242,7 +242,7 @@ footer{background:var(--bg-0);padding:2.4rem 0 1.4rem;border-top:1px solid rgba(
       </div>
     </div>
     <div class="gemwrap">
-      <img src="images/hero-character.webp" alt="" class="hero-char" fetchpriority="high"
+      <img src="hero-character.webp" alt="" class="hero-char" fetchpriority="high"
            onerror="this.style.display='none'"
            onload="this.nextElementSibling.style.display='none'">
       <svg class="gem-big" viewBox="0 0 200 200">
@@ -279,7 +279,7 @@ footer{background:var(--bg-0);padding:2.4rem 0 1.4rem;border-top:1px solid rgba(
 </section>
 
 <div class="promo-banner" id="promoBanner">
-  <img src="images/diamonds-banner.webp" alt="Diamantes Free Fire"
+  <img src="diamonds-banner.webp" alt="Diamantes Free Fire"
        loading="lazy"
        onerror="document.getElementById('promoBanner').style.display='none'">
   <div class="pb-overlay">
