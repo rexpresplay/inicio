@@ -184,6 +184,11 @@ p{margin:0;}
 
 /* ---------- FOOTER ---------- */
 footer{background:var(--bg-0);padding:2.4rem 0 1.4rem;border-top:1px solid rgba(248,249,255,.06);}
+.f-about{padding-bottom:1.4rem;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:1.4rem;}
+.f-about p{font-size:.78rem;color:var(--ink-faint);line-height:1.7;max-width:52ch;}
+.f-about p:last-child{margin-top:.35rem;color:var(--muted);}
+.f-about a{color:var(--orange-2);font-weight:800;}
+.f-about a:hover{text-decoration:underline;}
 .f-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-bottom:1.4rem;}
 .f-links{display:flex;gap:1.2rem;}
 .f-links a{font-size:.82rem;color:var(--ink-faint);}
@@ -327,13 +332,13 @@ footer{background:var(--bg-0);padding:2.4rem 0 1.4rem;border-top:1px solid rgba(
         <p class="pamt">341<small>Diamantes</small></p><p class="pprice">$2.66</p>
         <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
       </article>
-      <article class="pcard" data-buy data-amt="572" data-bonus="0" data-price="4.52">
+      <article class="pcard hot" data-buy data-amt="572" data-bonus="0" data-price="4.52">
+        <span class="ptag">Más popular</span>
         <svg class="pgem" viewBox="0 0 48 48"><polygon points="24,4 40,16 33,44 15,44 8,16" fill="#3FCBDE"/><polygon points="24,4 40,16 24,20" fill="#7BE4F0"/><polygon points="24,4 8,16 24,20" fill="#1E9FB3"/></svg>
         <p class="pamt">572<small>Diamantes</small></p><p class="pprice">$4.52</p>
         <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
       </article>
-      <article class="pcard hot" data-buy data-amt="1,160" data-bonus="0" data-price="8.43">
-        <span class="ptag">Recomendado</span>
+      <article class="pcard" data-buy data-amt="1,160" data-bonus="0" data-price="8.43">
         <svg class="pgem" viewBox="0 0 48 48"><polygon points="24,4 40,16 33,44 15,44 8,16" fill="#3FCBDE"/><polygon points="24,4 40,16 24,20" fill="#7BE4F0"/><polygon points="24,4 8,16 24,20" fill="#1E9FB3"/></svg>
         <p class="pamt">1,160<small>Diamantes</small></p><p class="pprice">$8.43</p>
         <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
@@ -343,8 +348,7 @@ footer{background:var(--bg-0);padding:2.4rem 0 1.4rem;border-top:1px solid rgba(
         <p class="pamt">2,398<small>Diamantes</small></p><p class="pprice">$16.80</p>
         <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
       </article>
-      <article class="pcard hot" data-buy data-amt="6,160" data-bonus="0" data-price="42.74">
-        <span class="ptag">Más popular</span>
+      <article class="pcard" data-buy data-amt="6,160" data-bonus="0" data-price="42.74">
         <svg class="pgem" viewBox="0 0 48 48"><polygon points="24,4 40,16 33,44 15,44 8,16" fill="#3FCBDE"/><polygon points="24,4 40,16 24,20" fill="#7BE4F0"/><polygon points="24,4 8,16 24,20" fill="#1E9FB3"/></svg>
         <p class="pamt">6,160<small>Diamantes</small></p><p class="pprice">$42.74</p>
         <button class="btn btn--blue btn--block" style="padding:.6rem;font-size:.85rem;">Comprar</button>
@@ -371,7 +375,7 @@ footer{background:var(--bg-0);padding:2.4rem 0 1.4rem;border-top:1px solid rgba(
     <div class="faq" data-reveal>
       <details class="fitem" open><summary>¿Cuánto tarda?</summary><p>Menos de 15 minutos en la mayoría de los casos.</p></details>
       <details class="fitem"><summary>¿Es seguro dar mi ID?</summary><p>Sí, nunca pedimos tu contraseña.</p></details>
-      <details class="fitem"><summary>¿Qué métodos de pago aceptan?</summary><p>Transferencia, Payphone, tarjeta y billeteras digitales.</p></details>
+      <details class="fitem"><summary>¿Qué métodos de pago aceptan?</summary><p>Transferencia (Banco Pichincha, Produbanco o Banco Guayaquil) y depósito (Produbanco o Banco Guayaquil).</p></details>
       <details class="fitem"><summary>¿Tienen garantía?</summary><p>Sí, reembolso si algo falla.</p></details>
     </div>
   </div>
@@ -404,6 +408,10 @@ footer{background:var(--bg-0);padding:2.4rem 0 1.4rem;border-top:1px solid rgba(
 </main>
 
 <footer>
+  <div class="wrap f-about">
+    <p>Rexpres Play es un centro de recargas ecuatoriano de diamantes de Free Fire — rápido, seguro y directo a tu cuenta.</p>
+    <p>📱 Atención al cliente: <a href="https://wa.me/593992225484" target="_blank" rel="noopener">0992225484</a> · 🕐 Lun-Dom, 8am - 10pm</p>
+  </div>
   <div class="wrap f-row">
     <span class="bword"><b>Rexpres</b><i>Play</i></span>
     <nav class="f-links">

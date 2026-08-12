@@ -228,7 +228,7 @@ footer{background:var(--bg-0);border-top:1px solid rgba(255,255,255,.06);padding
   <div class="success-box">
     <div class="success-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
     <div class="success-title">Pedido enviado</div>
-    <p class="success-sub">Tu pedido se envió por WhatsApp. Si adjuntaste comprobante, recuerda anexarlo en el chat que se abrió.<br>¡Gracias por tu compra!</p>
+    <p class="success-sub">Tu pedido fue enviado por WhatsApp.<br>Será confirmado ahí mismo — muchas gracias por tu compra.</p>
     <a class="success-btn" href="index.html">Volver al inicio</a>
   </div>
 </div>
@@ -451,6 +451,9 @@ metodoBtns.forEach(function(btn){
 
     bancosWrap.classList.add("show");
     document.getElementById("i" + (metodoSel === "transferencia" ? "Transferencia" : "Deposito")).classList.add("show");
+
+    // Banco Pichincha solo se ofrece para Transferencia
+    document.getElementById("bPichincha").style.display = (metodoSel === "transferencia") ? "flex" : "none";
   });
 });
 
@@ -557,7 +560,31 @@ document.getElementById("promoBtn").addEventListener("click", function(){
   actualizarResumen();
 });
 
-/* ---------- descargar comprobante como respaldo (no hay backend para subirlo) ---------- */
+/* =====================================================================
+   SUBIR COMPROBANTE A CLOUDINARY — mismas credenciales de tu cuenta
+   ---------------------------------------------------------------------
+   wa.me solo puede prellenar TEXTO, nunca adjuntar un archivo. Por eso
+   subimos la imagen a Cloudinary y mandamos el ENLACE directo dentro
+   del mensaje del pedido — al tocarlo en WhatsApp se abre la foto.
+   Si la subida falla (sin internet, etc.) se descarga al celular del
+   cliente como respaldo, para que nunca se pierda el comprobante.
+===================================================================== */
+var CLOUDINARY_CLOUD_NAME    = "wgp1dbjg";
+var CLOUDINARY_UPLOAD_PRESET = "rexpres";
+
+async function subirComprobante(){
+  if(!comprobanteFile) return "";
+  try{
+    var fd = new FormData();
+    fd.append("file", comprobanteFile);
+    fd.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    var resp = await fetch("https://api.cloudinary.com/v1_1/" + CLOUDINARY_CLOUD_NAME + "/auto/upload", { method:"POST", body:fd });
+    var data = await resp.json();
+    if(data && data.secure_url) return data.secure_url;
+  }catch(e){ /* sigue al respaldo de descarga */ }
+  return "";
+}
+
 function descargarComprobante(){
   if(!comprobanteFile) return;
   var url = URL.createObjectURL(comprobanteFile);
@@ -569,7 +596,7 @@ function descargarComprobante(){
 }
 
 /* ---------- confirmar pedido ---------- */
-document.getElementById("btnOk").addEventListener("click", function(){
+document.getElementById("btnOk").addEventListener("click", async function(){
   var id = document.getElementById("fId").value.trim();
   if(!/^\d{6,15}$/.test(id)){ document.getElementById("fId").focus(); alert("El ID debe tener solo números, entre 6 y 15 dígitos."); return; }
   if(!metodoSel){ alert("Selecciona un método de pago."); return; }
@@ -579,6 +606,13 @@ document.getElementById("btnOk").addEventListener("click", function(){
     if(!bancoSel){ alert("Selecciona un banco."); return; }
     if(!comprobanteBase64){ alert("Adjunta el comprobante de pago."); document.getElementById("comprobanteBox").scrollIntoView({behavior:"smooth",block:"center"}); return; }
   }
+
+  var btn = this;
+  btn.disabled = true;
+  btn.textContent = "Subiendo comprobante…";
+
+  var comprobanteUrl = await subirComprobante();
+  if(!comprobanteUrl && comprobanteFile) descargarComprobante();
 
   var tot = Math.max(price - descuento, 0);
   var metodoLabel = {transferencia:"Transferencia bancaria", deposito:"Depósito"}[metodoSel];
@@ -592,17 +626,12 @@ document.getElementById("btnOk").addEventListener("click", function(){
   if(descuento > 0) msg += "• Código: " + codigoUsado + " (-$" + descuento.toFixed(2) + ")\n";
   msg += "• *Total: $" + tot.toFixed(2) + "*\n";
   if(necesitaBanco){
-    msg += comprobanteBase64
-      ? "• 📎 Comprobante: te lo adjunto a continuación (revisa la imagen que se descargó) 👇\n"
-      : "";
+    msg += comprobanteUrl
+      ? "• 📎 Comprobante: " + comprobanteUrl + "\n"
+      : "• 📎 Comprobante: se descargó a tu celular, adjúntalo aquí 👇\n";
   }
 
-  var btn = this;
-  btn.disabled = true;
   btn.textContent = "Abriendo WhatsApp…";
-
-  if(comprobanteFile) descargarComprobante();
-
   window.open("https://wa.me/" + ORDER_NUMBER + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
 
   btn.disabled = false;
